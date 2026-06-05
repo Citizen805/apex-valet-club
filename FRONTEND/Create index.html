@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Capstone App</title>
+  <style>
+    body { font-family: Arial; padding: 20px; }
+    input, button { margin: 5px; }
+  </style>
+</head>
+<body>
+
+  <h1>Inventory App</h1>
+
+  <h2>Add Item</h2>
+  <input id="name" placeholder="Item Name" />
+  <input id="desc" placeholder="Description" />
+  <button onclick="addItem()">Add</button>
+
+  <h2>Items</h2>
+  <ul id="list"></ul>
+
+  <script>
+    const API_URL = "http://localhost:3000/items"; // replace with deployed URL later
+
+    // Fetch items
+    async function getItems() {
+      const res = await fetch(API_URL);
+      const data = await res.json();
+
+      const list = document.getElementById("list");
+      list.innerHTML = "";
+
+      data.forEach(item => {
+        const li = document.createElement("li");
+        li.textContent = item.name + " - " + item.description;
+        list.appendChild(li);
+      });
+    }
+
+    // Add item
+    async function addItem() {
+      const name = document.getElementById("name").value;
+      const description = document.getElementById("desc").value;
+
+      await fetch(API_URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ name, description })
+      });
+
+      getItems();
+    }
+
+    getItems();
+  </script>
+
+</body>
+</html>
