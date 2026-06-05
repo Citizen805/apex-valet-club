@@ -1,0 +1,13 @@
+az group create --name capstone-rg --location centralus
+
+az appservice plan create \
+  --name capstone-plan \
+  --resource-group capstone-rg \
+  --sku B1 \
+  --is-linux
+
+az webapp create \
+  --resource-group capstone-rg \
+  --plan capstone-plan \
+  --name YOUR-UNIQUE-APP-NAME \
+  --runtime "NODE|18-lts"
