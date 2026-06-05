@@ -1,0 +1,5 @@
+
+mkdir capstone-backend
+cd capstone-backend
+npm init -y
+npm install express cors
